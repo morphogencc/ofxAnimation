@@ -4,7 +4,7 @@
 * C++11
 
 ## Usage
-To use this library, include this file.
+To use this library, include `ofxAnimation.h`.
 
 the two objects the user deals with are:
 

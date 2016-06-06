@@ -2,6 +2,9 @@
 
 #include "EasingFunction.h"
 #include "AnimationFactory.h"
+#include "FloatAnimation.h"
+#include "ColorAnimation.h"
+#include "PointAnimation.h"
 
 /****************************************
 ofxAnimation.h

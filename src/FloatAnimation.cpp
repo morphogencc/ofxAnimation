@@ -1,8 +1,8 @@
-#include "Animation.h"
+#include "FloatAnimation.h"
 
 using namespace ofxAnimation;
 
-Animation::Animation(float* target, float startValue, float endValue, std::chrono::time_point<std::chrono::system_clock> startTime, std::chrono::time_point<std::chrono::system_clock> endTime, std::shared_ptr<EasingFunction> easingFunction) {
+FloatAnimation::FloatAnimation(float* target, float startValue, float endValue, std::chrono::time_point<std::chrono::system_clock> startTime, std::chrono::time_point<std::chrono::system_clock> endTime, std::shared_ptr<EasingFunction> easingFunction) {
 	mTarget = target;
 	mStartValue = startValue;
 	mEndValue = endValue;
@@ -14,11 +14,11 @@ Animation::Animation(float* target, float startValue, float endValue, std::chron
 	mEasingParameters.d = std::chrono::duration_cast<std::chrono::milliseconds>(mEndTime - mStartTime).count();
 }
 
-Animation::~Animation() {
+FloatAnimation::~FloatAnimation() {
 
 }
 
-void Animation::update() {
+void FloatAnimation::update() {
 	float currentTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - mStartTime).count();
 	float newValue = mEasingFunction->getValue(currentTime, mEasingParameters);
 	*mTarget = newValue;
@@ -27,14 +27,13 @@ void Animation::update() {
 	}
 }
 
-void Animation::onCompletion() {
+void FloatAnimation::onCompletion() {
 	for (auto callback : mOnCompletionCallbacks) {
 		callback(this);
 	}
 }
 
-bool Animation::isFinished() {
-	// NOTE TO SELF -- can I compare std::chrono::time_point like this?
+bool FloatAnimation::isFinished() {
 	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
 	if (currentTime > mEndTime) {
 		return true;
@@ -44,10 +43,10 @@ bool Animation::isFinished() {
 	}
 }
 
-void Animation::addUpdateCallback(std::function<void(Animation*)> callback_function) {
+void FloatAnimation::addUpdateCallback(std::function<void(FloatAnimation*)> callback_function) {
 	mOnUpdateCallbacks.push_back(callback_function);
 }
 
-void Animation::addCompletionCallback(std::function<void(Animation*)> callback_function) {
+void FloatAnimation::addCompletionCallback(std::function<void(FloatAnimation*)> callback_function) {
 	mOnCompletionCallbacks.push_back(callback_function);
 }

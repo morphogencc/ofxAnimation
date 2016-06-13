@@ -23,16 +23,18 @@ ColorAnimation::~ColorAnimation() {
 }
 
 void ColorAnimation::update() {
-    float currentTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - mStartTime).count();
-    
-    ofColor newValue;
-    for(int i = 0; i < 4; i++) {
-        newValue[i] = mEasingFunction->getValue(currentTime, mEasingParameters[i]);
-    }
-    *mTarget = newValue;
-    
-    for (auto callback : mOnUpdateCallbacks) {
-        callback(this);
+    if(std::chrono::system_clock::now() > mStartTime) {
+        float currentTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - mStartTime).count();
+        
+        ofColor newValue;
+        for(int i = 0; i < 4; i++) {
+            newValue[i] = mEasingFunction->getValue(currentTime, mEasingParameters[i]);
+        }
+        *mTarget = newValue;
+        
+        for (auto callback : mOnUpdateCallbacks) {
+            callback(this);
+        }
     }
 }
 

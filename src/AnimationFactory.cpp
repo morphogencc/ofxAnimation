@@ -41,6 +41,17 @@ std::shared_ptr<PointAnimation> AnimationFactory::addAnimation(ofPoint* target, 
     return animation;
 }
 
+std::shared_ptr<ColorAnimation> AnimationFactory::addAnimation(ofColor* target, ofColor endValue, int delayInMilliseconds, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction) {
+    std::chrono::time_point<std::chrono::system_clock> startTime = std::chrono::system_clock::now() + std::chrono::milliseconds(delayInMilliseconds);
+    std::chrono::time_point<std::chrono::system_clock> endTime = startTime + std::chrono::milliseconds(durationInMilliseconds);
+    
+    std::shared_ptr<ColorAnimation> animation = std::make_shared<ColorAnimation>(target, *target, endValue, startTime, endTime, easingFunction);
+    mAnimations.push_back(animation);
+    
+    return animation;
+}
+
+
 void AnimationFactory::update() {
 	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
 	for (auto animation = mAnimations.begin(); animation != mAnimations.end();) {

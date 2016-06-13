@@ -15,8 +15,9 @@ namespace ofxAnimation {
 	public:
 		static std::shared_ptr<AnimationFactory> getInstance();
 		std::shared_ptr<FloatAnimation> addAnimation(float* target, float endValue, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction);
-		std::shared_ptr<ColorAnimation> addAnimation(ofColor* target, ofColor endValue, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction);
+        std::shared_ptr<ColorAnimation> addAnimation(ofColor* target, ofColor endValue, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction);
 		std::shared_ptr<PointAnimation> addAnimation(ofPoint* target, ofPoint endValue, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction);
+        std::shared_ptr<ColorAnimation> addAnimation(ofColor* target, ofColor endValue, int delayInMilliseconds, int durationInMilliseconds, std::shared_ptr<EasingFunction> easingFunction);
 		//std::shared_ptr<Animation> addAnimation(float& target, float startValue, float endValue, float durationInSeconds, std::shared_ptr<EasingFunction> easingFunction);
 		//std::shared_ptr<Animation> addAnimation(float& target, float startValue, float endValue, float start, std::shared_ptr<EasingFunction> easingFunction);
 		void update();
